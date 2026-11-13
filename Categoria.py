@@ -1,19 +1,31 @@
-import Base
-import Producto
+from Base import Base
 
-class categoria(Base):
+from FoodStoreError import DatoInvalidoError
+class Categoria(Base):
     def __init__(self,nombre:str,descripcion:str):
-        self.__nombre = nombre
-        self.__descripcion = descripcion
-        self.__Lista:Producto = []
-        super().__init__(Base)
-    def __aniadir_producto__(self,Prod):
-        if isinstance(Prod,Producto):
-            if Prod in self.__Lista:
-                raise ValueError("El producto ya esta en la lista")
-            if Prod.disponible == False:
-                raise ValueError("El producto no esta disponible")
-            self.__Lista.append(Prod)
-            Prod.Categoria = self
-    def __str__(self):
-        raise NotImplementedError
+        super().__init__()
+        self.nombre = nombre
+        self.descripcion = descripcion
+        
+    #---------
+    @property
+    def nombre(self) -> str:
+        return self.__nombre
+    @property
+    def descripcion(self) -> str:
+        return self.__descripcion
+    #-----------
+    @nombre.setter
+    def nombre(self,valor:str) -> None:
+        if not valor.strip():
+            raise DatoInvalidoError("Este valor esta vacio")
+        self.__nombre = valor.strip()
+
+    @descripcion.setter
+    def descripcion(self,valor:str) -> None:
+        if not valor.strip():
+            raise DatoInvalidoError("Este valor esta vacio")
+        self.__descripcion = valor.strip()
+    #-----------
+    def __str__(self) -> str:
+        return f"Categoria:{self.__nombre} | Desc.:{self.__descripcion}"

@@ -1,13 +1,13 @@
 import Base
 import Categoria
 class Producto(Base):
-    def __init__(self,nombre:str,precio:float,descripcion:str,stock:int,imagen:str,disponible:bool):
+    def __init__(self,nombre:str,precio:float,descripcion:str,stock:int,imagen:str):
         self.__nombre = nombre
         self.__precio = precio
         self.__descripcion = descripcion
         self.__stock = stock
         self.__imagen = imagen
-        self.__disponible = True
+        #self.__disponible = True #supongo que tengo que usar la base
         self.__Categoria = None
         super().__init__(Base)
     @property

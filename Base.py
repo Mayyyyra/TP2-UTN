@@ -22,7 +22,7 @@ class Base(ABC):
         return self.__creado_en
     @property
     def id(self) -> int:
-            return self.__id
+        return self.__id
     #--------
     def __eq__(self,other:Base) -> bool:
         if not isinstance(other,Base):
