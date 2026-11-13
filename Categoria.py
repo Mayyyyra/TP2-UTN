@@ -2,7 +2,7 @@ from Base import Base
 
 from FoodStoreError import DatoInvalidoError
 class Categoria(Base):
-    def __init__(self,nombre:str,descripcion:str):
+    def __init__(self,nombre:str,descripcion:str) -> None:
         super().__init__()
         self.nombre = nombre
         self.descripcion = descripcion
