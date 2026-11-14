@@ -1,12 +1,13 @@
-from ..Entidades.Usuario import Usuario,Rol
-from ..Entidades.FoodStoreError import  DuplicadoError, EntidadNoEncontradaError, CredencialesInvalidasError, OperacionNoPermitidaError
+from ..Entidades.Usuario import Usuario
+from ..Entidades.Rol import Rol
+from ..Exepciones.FoodStoreError import  DuplicadoError, EntidadNoEncontradaError, CredencialesInvalidasError, OperacionNoPermitidaError
 
 class UsuarioServicio():
     def __init__(self):
         self.__usuarios:list[Usuario] = []
     @property
 
-    
+
     def usuarios(self) -> tuple[Usuario, ...]:
         return tuple(self.__usuarios)
 
@@ -52,3 +53,17 @@ class UsuarioServicio():
                 break
                 
         raise CredencialesInvalidasError("Mail o/y contraseña incorrectos.")
+
+    def editar(self, id_usuario: int, nombre: str | None = None, apellido: str | None = None, mail: str | None = None, celular: str | None = None, contrasenia: str | None = None, rol: Rol | None = None) -> None: 
+        usuario = self.buscar_por_id(id_usuario)
+        if mail is not None and mail.lower() != usuario.mail.lower():
+            if self.__existe_mail(mail, id_excluir=usuario.id):
+                raise DuplicadoError(f"El mail '{mail}' ya está en uso por otro usuario.")
+            usuario.mail = mail
+
+        if nombre is not None: usuario.nombre = nombre
+        if apellido is not None: usuario.apellido = apellido
+        if celular is not None: usuario.celular = celular
+        if rol is not None: usuario.rol = rol
+        if contrasenia is not None:
+            usuario._Usuario__contrasenia = contrasenia

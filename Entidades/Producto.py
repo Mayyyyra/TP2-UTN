@@ -1,6 +1,6 @@
 from Base import Base
 from Categoria import Categoria
-from FoodStoreError import DatoInvalidoError
+from ..Exepciones.FoodStoreError import DatoInvalidoError
 class Producto(Base):
     def __init__(self,nombre:str,precio:float | int,descripcion:str,stock:int,imagen:str, categoria:Categoria | None, disp:bool = True) -> None:
         super().__init__()

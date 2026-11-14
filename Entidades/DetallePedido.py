@@ -1,5 +1,5 @@
 from Base import Base
-from FoodStoreError import DatoInvalidoError
+from ..Exepciones.FoodStoreError import DatoInvalidoError
 from Producto import Producto
 class DetallePedido(Base):
     def __init__(self,cantidad:int,producto:Producto) -> None:

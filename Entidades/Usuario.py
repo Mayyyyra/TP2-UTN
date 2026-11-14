@@ -1,6 +1,6 @@
 from Base import Base
 from Rol import Rol
-from FoodStoreError import DatoInvalidoError
+from ..Exepciones.FoodStoreError import DatoInvalidoError
 class Usuario(Base):
     def __init__(self,nombre:str,apellido:str,mail:str,celular:str,contrasenia:str,rol:Rol):
         super().__init__()

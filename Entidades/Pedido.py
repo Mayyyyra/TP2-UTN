@@ -4,7 +4,7 @@ from datetime import date
 from Calculable import Calculable
 from DetallePedido import DetallePedido
 from Producto import Producto
-from FoodStoreError import DatoInvalidoError, StockInsuficienteError
+from ..Exepciones.FoodStoreError import DatoInvalidoError, StockInsuficienteError
 from Base import Base
 
 class Pedido(Base):

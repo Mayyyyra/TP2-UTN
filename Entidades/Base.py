@@ -1,6 +1,6 @@
 from datetime import datetime
 from abc import ABC,abstractmethod
-from FoodStoreError import EntidadNoEncontradaError
+from ..Exepciones.FoodStoreError import EntidadNoEncontradaError
 class Base(ABC):
     __contador_id: int = 0
     def __init__(self) -> None:
