@@ -1,11 +1,11 @@
-from EnumsPedido import Estado,FormaPago
-from Usuario import Usuario
+from Entidades.EnumsPedido import Estado,FormaPago
+from Entidades.Usuario import Usuario
 from datetime import date
-from Calculable import Calculable
-from DetallePedido import DetallePedido
-from Producto import Producto
-from ..Exepciones.FoodStoreError import DatoInvalidoError, StockInsuficienteError
-from Base import Base
+#from Calculable import Calculable
+from Entidades.DetallePedido import DetallePedido
+from Entidades.Producto import Producto
+from Exepciones.FoodStoreError import DatoInvalidoError, StockInsuficienteError
+from Entidades.Base import Base
 
 class Pedido(Base):
     def __init__(self, usuario: Usuario, forma_pago: FormaPago) -> None:

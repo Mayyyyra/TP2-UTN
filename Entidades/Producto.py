@@ -1,6 +1,6 @@
-from Base import Base
-from Categoria import Categoria
-from ..Exepciones.FoodStoreError import DatoInvalidoError
+from Entidades.Base import Base
+from Entidades.Categoria import Categoria
+from Exepciones.FoodStoreError import DatoInvalidoError
 class Producto(Base):
     def __init__(self,nombre:str,precio:float | int,descripcion:str,stock:int,imagen:str, categoria:Categoria | None, disp:bool = True) -> None:
         super().__init__()
@@ -72,11 +72,18 @@ class Producto(Base):
         self.__descripcion = valor.strip()
     @categoria.setter
     def categoria(self,other) -> None:
+        # if other == 0:
+        #     self.__categoria = None
+        #     return
+        # if other is None:
+        #     self.__categoria = None
+        #     return
         if other is None:
-            self.__categoria = None
+            self.__categoria = other
             return
         if not isinstance(other,Categoria):
             raise DatoInvalidoError("el valor no es una categoria valida")
+        
         if other.eliminado:
             raise DatoInvalidoError("No se puede asignar una categoría eliminada.")
         self.__categoria = other

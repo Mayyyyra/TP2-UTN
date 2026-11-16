@@ -1,6 +1,6 @@
-from ..Entidades.Categoria import Categoria
-from ..Entidades.Producto import Producto
-from ..Exepciones.FoodStoreError import DuplicadoError, EntidadNoEncontradaError, OperacionNoPermitidaError
+from Entidades.Categoria import Categoria
+from Entidades.Producto import Producto
+from Exepciones.FoodStoreError import DuplicadoError, EntidadNoEncontradaError, OperacionNoPermitidaError
 
 class CategoriaServicio():
     def __init__(self) -> None:

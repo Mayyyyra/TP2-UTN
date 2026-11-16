@@ -1,9 +1,9 @@
-from ..Entidades.Pedido import Pedido
-from ..Entidades.Usuario import Usuario
-from ..Entidades.Producto import Producto
-from ..Entidades.EnumsPedido import Estado, FormaPago
-from ..Servicios.ProductoServicio import ProductoServicio
-from ..Exepciones.FoodStoreError import EntidadNoEncontradaError, OperacionNoPermitidaError, StockInsuficienteError
+from Entidades.Pedido import Pedido
+from Entidades.Usuario import Usuario
+from Entidades.Producto import Producto
+from Entidades.EnumsPedido import Estado, FormaPago
+from Servicios.ProductoServicio import ProductoServicio
+from Exepciones.FoodStoreError import EntidadNoEncontradaError, OperacionNoPermitidaError, StockInsuficienteError
 
 class PedidoServicio():
     def __init__(self) -> None:
@@ -14,24 +14,16 @@ class PedidoServicio():
         return tuple(self.__pedidos)
 
     def crear(self, usuario: Usuario, forma_pago: FormaPago, productos_y_cantidades: list[tuple[Producto, int]], prod_servicio: ProductoServicio) -> Pedido:
-        """
-        Crea un pedido. Si falla, el pedido no se guarda y el stock no se modifica.
-        productos_y_cantidades es una lista de tuplas: [(Producto1, 2), (Producto2, 1)]
-        """
-        # 1. Creamos el pedido en memoria
+
         nuevo_pedido = Pedido(usuario, forma_pago)
         
-        # 2. Agregamos los detalles
         for producto, cantidad in productos_y_cantidades:
-            # El método agregar_detalle de Pedido ya valida si hay stock suficiente.
-            # Si no hay stock, lanza StockInsuficienteError y corta acá.
+
             nuevo_pedido.agregar_detalle(cantidad, producto)
             
-        # 3. Si llegamos hasta acá sin excepciones, descontamos el stock
         for producto, cantidad in productos_y_cantidades:
             producto.stock -= cantidad
             
-        # 4. Guardamos el pedido y lo devolvemos
         self.__pedidos.append(nuevo_pedido)
         return nuevo_pedido
 

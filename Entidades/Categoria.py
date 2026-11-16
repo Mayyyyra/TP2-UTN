@@ -1,6 +1,6 @@
-from Base import Base
+from Entidades.Base import Base
 
-from ..Exepciones.FoodStoreError import DatoInvalidoError
+from Exepciones.FoodStoreError import DatoInvalidoError
 class Categoria(Base):
     def __init__(self,nombre:str,descripcion:str) -> None:
         super().__init__()

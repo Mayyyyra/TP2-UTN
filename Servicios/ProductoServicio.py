@@ -1,6 +1,6 @@
-from ..Entidades.Producto import Producto
-from ..Servicios.CategoriaServicio import CategoriaServicio
-from ..Exepciones.FoodStoreError import EntidadNoEncontradaError
+from Entidades.Producto import Producto
+from Servicios.CategoriaServicio import CategoriaServicio
+from Exepciones.FoodStoreError import EntidadNoEncontradaError
 
 class ProductoServicio():
     def __init__(self) -> None:
@@ -11,7 +11,10 @@ class ProductoServicio():
         return tuple(self.__productos)
 
     def crear(self, nombre: str, precio: float, descripcion: str, stock: int, imagen: str, disponible: bool, id_categoria: int, cat_servicio: CategoriaServicio) -> Producto:
-        categoria = cat_servicio.buscar_por_id(id_categoria)
+        if id_categoria == 0:
+                    categoria = None
+        else:
+            categoria = cat_servicio.buscar_por_id(id_categoria)
         
         nuevo_producto = Producto(nombre, precio, descripcion, stock, imagen, categoria, disponible)
         

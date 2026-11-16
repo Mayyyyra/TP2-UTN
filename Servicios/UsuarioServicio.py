@@ -1,6 +1,6 @@
-from ..Entidades.Usuario import Usuario
-from ..Entidades.Rol import Rol
-from ..Exepciones.FoodStoreError import  DuplicadoError, EntidadNoEncontradaError, CredencialesInvalidasError, OperacionNoPermitidaError
+from Entidades.Usuario import Usuario
+from Entidades.Rol import Rol
+from Exepciones.FoodStoreError import  DuplicadoError, EntidadNoEncontradaError, CredencialesInvalidasError, OperacionNoPermitidaError
 
 class UsuarioServicio():
     def __init__(self):

@@ -1,5 +1,3 @@
-
-
 def leer_flotante(mensaje: str) -> float:
     while True:
         try:
