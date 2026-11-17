@@ -2,7 +2,7 @@ from Entidades.Base import Base
 from Entidades.Rol import Rol
 from Exepciones.FoodStoreError import DatoInvalidoError
 class Usuario(Base):
-    def __init__(self,nombre:str,apellido:str,mail:str,celular:str,contrasenia:str,rol:Rol):
+    def __init__(self,nombre:str,apellido:str,mail:str,celular:str,contrasenia:str,rol:Rol) -> None:
         super().__init__()
         self.nombre = nombre
         self.apellido = apellido
