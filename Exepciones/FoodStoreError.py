@@ -2,9 +2,9 @@
 class FoodStoreError(Exception):
     pass
 class EntidadNoEncontradaError(FoodStoreError):
-    "No pudimos encontrar la id, revise si la id que puso es correcta o esta eliminada"
+    pass
 class DatoInvalidoError(FoodStoreError):
-    "Este dato no es un dato valido"
+    pass
 class StockInsuficienteError(FoodStoreError):
     pass
 class DuplicadoError(FoodStoreError):

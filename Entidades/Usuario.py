@@ -64,5 +64,5 @@ class Usuario(Base):
     def verificar_contrasenia(self,contrasenia: str) -> bool:
         return contrasenia == self.__contrasenia
         
-    def __str__(self):
-        return f"Nombre:{self.__nombre}|Apellido:{self.__apellido}|\nmail:{self.__mail}|Celular:{self.__celular}"
+    def __str__(self) -> str:
+        return f"Nombre:{self.__nombre}|Apellido:{self.__apellido}|\nmail:{self.__mail}|Celular:{self.__celular}|ID:{self.id}"

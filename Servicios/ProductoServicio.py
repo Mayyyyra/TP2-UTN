@@ -1,7 +1,6 @@
 from Entidades.Producto import Producto
 from Servicios.CategoriaServicio import CategoriaServicio
 from Exepciones.FoodStoreError import EntidadNoEncontradaError
-
 class ProductoServicio():
     def __init__(self) -> None:
         self.__productos: list[Producto] = []
@@ -34,15 +33,18 @@ class ProductoServicio():
         return [p for p in self.__productos if not p.eliminado and p.disponible and p.stock > 0]
 
     def editar(self, id_producto: int, nombre: str | None = None, precio: float | None = None, 
-               descripcion: str | None = None, stock: int | None = None, 
-               imagen: str | None = None, disponible: bool | None = None, 
-               id_categoria: int | None = None, cat_servicio: CategoriaServicio | None = None) -> None:
-        
+            descripcion: str | None = None, stock: int | None = None, 
+            imagen: str | None = None, disponible: bool | None = None, 
+            id_categoria: int | None = None, cat_servicio: CategoriaServicio | None = None) -> None:
+    
         producto = self.buscar_por_id(id_producto)
 
         if id_categoria is not None and cat_servicio is not None:
-            nueva_categoria = cat_servicio.buscar_por_id(id_categoria)
-            producto.categoria = nueva_categoria
+            if id_categoria == 0:
+                producto.categoria = None
+            else:
+                nueva_categoria = cat_servicio.buscar_por_id(id_categoria)
+                producto.categoria = nueva_categoria
 
         if nombre is not None: producto.nombre = nombre
         if precio is not None: producto.precio = precio
@@ -50,7 +52,6 @@ class ProductoServicio():
         if stock is not None: producto.stock = stock
         if imagen is not None: producto.imagen = imagen
         if disponible is not None: producto.disponible = disponible
-
     def eliminar(self, id_producto: int) -> None:
         producto = self.buscar_por_id(id_producto)
         producto.eliminar()

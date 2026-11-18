@@ -57,12 +57,10 @@ class MenuCliente(Menu):
                         for p in peds:
                             print(p)
                         
-                        # Usamos leer_sn para preguntar si quiere ver detalles
                         if leer_sn("\n¿Querés ver los detalles de algún pedido?"):
                             id_ped = leer_entero("Ingresá el ID del pedido: ")
                             try:
                                 pedido = self.ped_servicio.buscar_por_id(id_ped)
-                                # Validar que el pedido le pertenezca al cliente
                                 if pedido.usuario.id != self.usuario.id:
                                     print("\nPedido no encontrado.")
                                 else:
@@ -93,5 +91,4 @@ class MenuCliente(Menu):
             except ValueError:
                 print("\nError: Ingresaste un dato inválido.")
             
-            # Pausa para que el usuario pueda leer el resultado antes de limpiar la pantalla
             input("\nPresione Enter para continuar")

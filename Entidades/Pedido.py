@@ -1,13 +1,13 @@
 from Entidades.EnumsPedido import Estado,FormaPago
 from Entidades.Usuario import Usuario
 from datetime import date
-#from Calculable import Calculable
+from Entidades.Calculable import Calculable
 from Entidades.DetallePedido import DetallePedido
 from Entidades.Producto import Producto
 from Exepciones.FoodStoreError import DatoInvalidoError, StockInsuficienteError
 from Entidades.Base import Base
 
-class Pedido(Base):
+class Pedido(Base,Calculable):
     def __init__(self, usuario: Usuario, forma_pago: FormaPago) -> None:
         super().__init__()
         self.usuario = usuario
@@ -63,14 +63,18 @@ class Pedido(Base):
                 return i
         return None
     def agregar_detalle(self, cantidad: int, producto: Producto) -> None:
+        if cantidad > producto.stock:
+            raise StockInsuficienteError(f"No hay stock suficiente de {producto.nombre}. Stock actual: {producto.stock}.")
+            
         detalle_existente = self.buscar_detalle_por_producto(producto)
         if detalle_existente is not None:
-            nueva_cantidad = detalle_existente.cantidad + cantidad
-            if nueva_cantidad > producto.stock:
-                raise StockInsuficienteError("No hay stock suficiente para cubrir la cantidad total.")
-            detalle_existente.cantidad = nueva_cantidad
+            if detalle_existente.cantidad + cantidad > producto.stock:
+                raise StockInsuficienteError("La cantidad total supera el stock disponible.")
+            detalle_existente.cantidad += cantidad
         else:
-            self.__detalles.append(DetallePedido(cantidad, producto))
+            nuevo_detalle = DetallePedido(cantidad, producto)
+            self.__detalles.append(nuevo_detalle)
+            
         self.calcular_total()
     def eliminar_detalle_por_producto(self, producto: Producto) -> None:
         x = self.buscar_detalle_por_producto(producto)

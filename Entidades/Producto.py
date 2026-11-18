@@ -91,6 +91,6 @@ class Producto(Base):
 
     def __str__(self) -> str:
         if self.categoria is not None:
-            return f"Nombre:{self.nombre}|Precio:{self.__precio}|Desc.:{self.__descripcion}|stock:{self.__stock}|disponible:{self.__disponible}|\nID:{self.id}|Categoria:{self.__categoria.__nombre}"
+            return f"Nombre:{self.__nombre}|Precio:{self.__precio}|Desc.:{self.__descripcion}|stock:{self.__stock}|disponible:{self.__disponible}|\nID:{self.id}|Categoria:{self.__categoria}"
         else:
-            return f"Nombre:{self.nombre}|Precio:{self.__precio}|Desc.:{self.__descripcion}|stock:{self.__stock}|disponible:{self.__disponible}|\nID:{self.id}|Categoria:Sin categoria"
+            return f"Nombre:{self.__nombre}|Precio:{self.__precio}|Desc.:{self.__descripcion}|stock:{self.__stock}|disponible:{self.__disponible}|\nID:{self.id}|Categoria:Sin categoria"

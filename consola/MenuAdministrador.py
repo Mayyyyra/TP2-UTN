@@ -143,7 +143,7 @@ class MenuAdministrador(Menu):
                     desc = leer_texto("Descripción: ")
                     stock = leer_entero("Stock: ")
                     img = leer_texto("Imagen: ")
-                    disp = leer_sn("¿Está disponible?")
+                    disp = leer_sn("Está disponible?")
                     id_cat = leer_entero("ID de la categoría (0 para ninguna): ")
                     
                     prod = self.prod_servicio.crear(nom, precio, desc, stock, img, disp, id_cat, self.cat_servicio)
@@ -152,6 +152,7 @@ class MenuAdministrador(Menu):
                 elif opcion == 3:
                     id_prod = leer_entero("ID del producto: ")
                     print("Deja vacío para conservar el valor actual.")
+                    
                     nom = leer_texto("Nuevo nombre: ", permitir_vacio=True)
                     precio_str = leer_texto("Nuevo precio: ", permitir_vacio=True)
                     
@@ -161,8 +162,27 @@ class MenuAdministrador(Menu):
                             precio_float = float(precio_str.replace(",", "."))
                         except ValueError:
                             raise DatoInvalidoError("El precio debe ser un número válido")
-                        
-                    self.prod_servicio.editar(id_prod, nombre=nom if nom else None, precio=precio_float)
+                    
+                    print("\nEditar categoría:")
+                    print("Ingresa el ID de la nueva categoría.")
+                    print("(Ingresa 0 para dejarlo SIN categoría, o presiona Enter para no cambiar nada)")
+                    
+                    cat_str = leer_texto("ID de categoría: ", permitir_vacio=True)
+                    
+                    id_cat_final = None
+                    if cat_str:
+                        try:
+                            id_cat_final = int(cat_str)
+                        except ValueError:
+                            raise DatoInvalidoError("El ID de categoría debe ser un número entero")
+
+                    self.prod_servicio.editar(
+                        id_prod, 
+                        nombre=nom if nom else None, 
+                        precio=precio_float,
+                        id_categoria=id_cat_final,
+                        cat_servicio=self.cat_servicio
+                    )
                     print("Producto actualizado.")
                 
                 elif opcion == 4:
@@ -222,24 +242,40 @@ class MenuAdministrador(Menu):
                     print(f"Usuario creado con ID {user.id}.")
                 
                 elif opcion == 3:
-                    id_user = leer_entero("ID del usuario a editar: ")
+                    id_prod = leer_entero("ID del producto: ")
                     print("Deja vacío para conservar el valor actual.")
                     
                     nom = leer_texto("Nuevo nombre: ", permitir_vacio=True)
-                    ape = leer_texto("Nuevo apellido: ", permitir_vacio=True)
-                    mail = leer_texto("Nuevo mail: ", permitir_vacio=True)
-                    cel = leer_texto("Nuevo celular: ", permitir_vacio=True)
-                    passw = leer_texto("Nueva contraseña: ", permitir_vacio=True)
+                    precio_str = leer_texto("Nuevo precio: ", permitir_vacio=True)
                     
-                    self.user_servicio.editar(
-                        id_user, 
+                    precio_float = None
+                    if precio_str:
+                        try:
+                            precio_float = float(precio_str.replace(",", "."))
+                        except ValueError:
+                            raise DatoInvalidoError("El precio debe ser un número válido")
+                    
+                    print("\nEditar categoría:")
+                    print("Ingresa el ID de la nueva categoría.")
+                    print("(Ingresa 0 para dejarlo SIN categoría, o presiona Enter para no cambiar nada)")
+                    
+                    cat_str = leer_texto("ID de categoría: ", permitir_vacio=True)
+                    
+                    id_cat_final = None
+                    if cat_str:
+                        try:
+                            id_cat_final = int(cat_str)
+                        except ValueError:
+                            raise DatoInvalidoError("El ID de categoría debe ser un número entero")
+
+                    self.prod_servicio.editar(
+                        id_prod, 
                         nombre=nom if nom else None, 
-                        apellido=ape if ape else None,
-                        mail=mail if mail else None,
-                        celular=cel if cel else None,
-                        contrasenia=passw if passw else None
+                        precio=precio_float,
+                        id_categoria=id_cat_final,
+                        cat_servicio=self.cat_servicio
                     )
-                    print("Usuario actualizado.")
+                    print("Producto actualizado.")
                 
                 elif opcion == 4:
                     id_user = leer_entero("ID del usuario: ")
@@ -282,6 +318,10 @@ class MenuAdministrador(Menu):
                             print(p)
                 
                 elif opcion == 2:
+                    users = self.user_servicio.listar()
+                    if users:
+                        for u in users:
+                            print(u)
                     id_user = leer_entero("ID del usuario que hace el pedido: ")
                     user = self.user_servicio.buscar_por_id(id_user)
                     
@@ -294,6 +334,13 @@ class MenuAdministrador(Menu):
                     
                     prod_list = []
                     while True:
+                        prods = self.prod_servicio.listar()
+                        if prods:
+                            for p in prods:
+                                print(p)
+                        else:
+                            print("No hay productos cargados")
+                            break
                         id_prod = leer_entero("ID del producto (0 para terminar): ")
                         if id_prod == 0: break
                         cant = leer_entero("Cantidad: ")

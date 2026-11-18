@@ -14,11 +14,10 @@ class PedidoServicio():
         return tuple(self.__pedidos)
 
     def crear(self, usuario: Usuario, forma_pago: FormaPago, productos_y_cantidades: list[tuple[Producto, int]], prod_servicio: ProductoServicio) -> Pedido:
-
+    
         nuevo_pedido = Pedido(usuario, forma_pago)
         
         for producto, cantidad in productos_y_cantidades:
-
             nuevo_pedido.agregar_detalle(cantidad, producto)
             
         for producto, cantidad in productos_y_cantidades:

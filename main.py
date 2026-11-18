@@ -1,4 +1,3 @@
-from getpass import getpass
 from Servicios.UsuarioServicio import UsuarioServicio
 from Servicios.CategoriaServicio import CategoriaServicio
 from Servicios.ProductoServicio import ProductoServicio
@@ -27,7 +26,8 @@ def main():
     while True:
         print("INICIO DE SESIÓN")
         mail = input("Mail: ").strip()
-        contrasenia = getpass("Contraseña: ") 
+        contrasenia = input("Contraseña: ").strip()
+
 
         try:
             usuario_actual = user_servicio.autenticar(mail, contrasenia)
@@ -55,7 +55,7 @@ def main():
             
             while not sesion_iniciada and intentos < 3:
                 mail = input("Mail: ").strip()
-                contrasenia = getpass("Contraseña: ")
+                contrasenia = input("Contraseña: ")
                 
                 try:
                     usuario_actual = user_servicio.autenticar(mail, contrasenia)

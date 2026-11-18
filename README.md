@@ -7,7 +7,7 @@ Sistema de consola desarrollado en Python orientado a la gestión de un negocio 
 
 ## Requisitos del Sistema
 
-- Python 3.12 o superior.
+- Python 3.12
 - Bibliotecas estándar de Python.
 ## Instalación y Ejecución
 
